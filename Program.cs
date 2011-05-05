@@ -55,10 +55,10 @@ namespace ScaleTest
 			{
 				new SingleThreadPollingProcessor<long>(),
 				new SingleThreadSignaledProcessor<long>(),
-				new SingleThreadSlimSignaledProcessor<long>(),
+				//new SingleThreadSlimSignaledProcessor<long>(),
 				new SingleQueuePollingThreadPerCoreProcessor<long>(),
 				new SingleQueueSignaledThreadPerCoreProcessor<long>(),
-				new SingleQueueSlimSignaledThreadPerCoreProcessor<long>(),
+				//new SingleQueueSlimSignaledThreadPerCoreProcessor<long>(),
 				new	RoundRobinQueueSignaledThreadPerCoreProcessor<long>()
 			};
 
