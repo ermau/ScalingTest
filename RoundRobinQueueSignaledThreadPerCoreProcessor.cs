@@ -17,12 +17,14 @@ namespace ScaleTest
 
 		public void Enqueue (T element)
 		{
-			int next, set;
-			do
-			{
-				next = this.nextQueue;
-				set = (next + 1 < this.queues.Length) ? next + 1 : 0;
-			} while (Interlocked.CompareExchange (ref this.nextQueue, set, next) != next);
+			int next = Interlocked.Increment (ref this.nextQueue);
+			next = next % this.queues.Length;
+			//int next, set;
+			//do
+			//{
+			//    next = this.nextQueue;
+			//    set = (next + 1 < this.queues.Length) ? next + 1 : 0;
+			//} while (Interlocked.CompareExchange (ref this.nextQueue, set, next) != next);
 
 			var t = this.queues[next];
 			t.Item1.Enqueue (element);
@@ -69,7 +71,7 @@ namespace ScaleTest
 		}
 
 		private volatile bool running;
-		private int nextQueue = 0;
+		private int nextQueue = -1;
 		private Tuple<ConcurrentQueue<T>, ManualResetEvent>[] queues;
 		private readonly List<Thread> processingThreads = new List<Thread>();
 		private Action<T> processor;
