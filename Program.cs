@@ -12,6 +12,7 @@ namespace ScaleTest
 	{
 		private const int TestCount = 3;
 		private const int ElementsPerCore = 5000000;
+		private const int WorkLoad = 1;
 		private const bool UseLogicalCores = false;
 		private const bool UseMaxOnly = true;
 
@@ -47,7 +48,7 @@ namespace ScaleTest
 			int coresPerSide = ((UseLogicalCores) ? Environment.ProcessorCount : totalPhysicalCores) / 2;
 
 			Console.WriteLine ("Using {0} for a total of {1} cores for processing (and {1} for clients)", (UseLogicalCores) ? "logical cores" : "physical cores", coresPerSide);
-			Console.WriteLine ("Testing with {0:N0} elements", ElementsPerCore * coresPerSide);
+			Console.WriteLine ("Testing with {0:N0} elements with a work load of {1:N0} each", ElementsPerCore * coresPerSide, WorkLoad);
 			Console.WriteLine();
 
 			IProcessor<long>[] processors = new IProcessor<long>[]
@@ -97,7 +98,7 @@ namespace ScaleTest
 
 								// Busy work.
 								int foo = 0;
-								for (int x = 0; x < 5000; ++x)
+								for (int x = 0; x < WorkLoad * 100; ++x)
 									foo += x;
 
 								if (Interlocked.Increment (ref counter) == elements)
