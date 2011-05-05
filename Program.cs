@@ -12,7 +12,7 @@ namespace ScaleTest
 	{
 		private const int TestCount = 3;
 		private const int ElementsPerCore = 5000000;
-		private const int WorkLoad = 1;
+		private const int WorkLoad = 50;
 		private const bool UseLogicalCores = false;
 		private const bool UseMaxOnly = true;
 
